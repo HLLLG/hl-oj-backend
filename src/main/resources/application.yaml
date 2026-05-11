@@ -1,0 +1,26 @@
+spring:
+  application:
+    name: hl-oj-backend
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/hl_oj
+    username: root
+    password: 123456
+server:
+  port: 8123
+  servlet:
+    context-path: /api
+
+# springdoc-openapi项目配置
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    tags-sorter: alpha
+    operations-sorter: alpha
+  group-configs:
+    - group: 'default'
+      paths-to-match: '/**'
+      packages-to-scan: com.hl.hlojbackend.controller
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: false
