@@ -49,9 +49,7 @@ public class QuestionSubmitController {
     }
 
     @PostMapping("/list/page/vo")
-    public BaseResponse<Page<QuestionSubmitVO>> listQuestionSubmitVOByPage(
-            @RequestBody QuestionSubmitQueryRequest request,
-            HttpServletRequest httpRequest) {
+    public BaseResponse<Page<QuestionSubmitVO>> listQuestionSubmitVOByPage(@RequestBody QuestionSubmitQueryRequest request, HttpServletRequest httpRequest) {
         ThrowUtils.throwIf(request == null, ErrorCode.PARAMS_ERROR);
         ThrowUtils.throwIf(request.getPageSize() > 100, ErrorCode.PARAMS_ERROR, "每页数量不能超过 100");
         User loginUser = userService.getLoginUser(httpRequest);
