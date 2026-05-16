@@ -1,4 +1,4 @@
-package com.hl.hlojbackend.model.judge;
+package com.hl.hlojbackend.judge.codeSandbox.model;
 
 import lombok.Data;
 import java.io.Serializable;

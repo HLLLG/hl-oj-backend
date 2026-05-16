@@ -24,3 +24,7 @@ springdoc:
 mybatis-plus:
   configuration:
     map-underscore-to-camel-case: false
+
+# 代码沙箱模式
+code-sandbox:
+  type: remote

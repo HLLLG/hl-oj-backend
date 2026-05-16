@@ -4,12 +4,10 @@ import cn.hutool.json.JSONUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hl.hlojbackend.constant.UserConstant;
 import com.hl.hlojbackend.exception.ErrorCode;
 import com.hl.hlojbackend.exception.ThrowUtils;
+import com.hl.hlojbackend.judge.JudgeService;
 import com.hl.hlojbackend.mapper.QuestionSubmitMapper;
 import com.hl.hlojbackend.model.dto.question_submit.QuestionSubmitAddRequest;
 import com.hl.hlojbackend.model.dto.question_submit.QuestionSubmitQueryRequest;
@@ -18,9 +16,8 @@ import com.hl.hlojbackend.model.entity.QuestionSubmit;
 import com.hl.hlojbackend.model.entity.User;
 import com.hl.hlojbackend.model.enums.QuestionSubmitLanguageEnum;
 import com.hl.hlojbackend.model.enums.QuestionSubmitStatusEnum;
-import com.hl.hlojbackend.model.judge.JudgeInfo;
+import com.hl.hlojbackend.judge.codeSandbox.model.JudgeInfo;
 import com.hl.hlojbackend.model.vo.QuestionSubmitVO;
-import com.hl.hlojbackend.model.vo.UserVO;
 import com.hl.hlojbackend.service.QuestionService;
 import com.hl.hlojbackend.service.QuestionSubmitService;
 import com.hl.hlojbackend.service.UserService;
@@ -31,8 +28,6 @@ import org.springframework.util.StringUtils;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -44,6 +39,9 @@ public class QuestionSubmitServiceImpl extends ServiceImpl<QuestionSubmitMapper,
 
     @Resource
     private UserService userService;
+
+    @Resource
+    private JudgeService judgeService;
 
     private static final List<String> VALID_SORT_FIELDS = Arrays.asList(
             "id", "createTime", "updateTime", "status");
@@ -69,6 +67,7 @@ public class QuestionSubmitServiceImpl extends ServiceImpl<QuestionSubmitMapper,
         questionSubmit.setJudgeInfo("{}");
 
         ThrowUtils.throwIf(!this.save(questionSubmit), ErrorCode.SYSTEM_ERROR, "题目提交失败");
+        judgeService.doJudge(questionSubmit.getId());
         return questionSubmit.getId();
     }
 

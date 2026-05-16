@@ -115,9 +115,7 @@ public class QuestionController {
     }
 
     @GetMapping("/get/vo")
-    public BaseResponse<QuestionVO> getQuestionVOById(@RequestParam long id,
-                                                      HttpServletRequest httpRequest) {
-        userService.getLoginUser(httpRequest);
+    public BaseResponse<QuestionVO> getQuestionVOById(@RequestParam long id) {
         ThrowUtils.throwIf(id <= 0, ErrorCode.PARAMS_ERROR);
         Question question = questionService.getById(id);
         ThrowUtils.throwIf(question == null, ErrorCode.NOT_FOUND_ERROR);
@@ -125,9 +123,7 @@ public class QuestionController {
     }
 
     @PostMapping("/list/page/vo")
-    public BaseResponse<Page<QuestionVO>> listQuestionVOByPage(@RequestBody QuestionQueryRequest request,
-                                                               HttpServletRequest httpRequest) {
-        userService.getLoginUser(httpRequest);
+    public BaseResponse<Page<QuestionVO>> listQuestionVOByPage(@RequestBody QuestionQueryRequest request) {
         ThrowUtils.throwIf(request == null, ErrorCode.PARAMS_ERROR);
         ThrowUtils.throwIf(request.getPageSize() > 100, ErrorCode.PARAMS_ERROR, "每页数量不能超过 100");
         return ResultsUtils.success(questionService.listQuestionVOByPage(request));

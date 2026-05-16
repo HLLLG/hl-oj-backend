@@ -1,6 +1,6 @@
 package com.hl.hlojbackend.model.vo;
 
-import com.hl.hlojbackend.model.judge.JudgeInfo;
+import com.hl.hlojbackend.judge.codeSandbox.model.JudgeInfo;
 import lombok.Data;
 
 import java.io.Serializable;
