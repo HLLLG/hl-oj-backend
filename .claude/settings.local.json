@@ -1,0 +1,34 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(./mvnw clean *)",
+      "Bash(./mvnw spring-boot:run)",
+      "Bash(echo \"PID=$!\")",
+      "Bash(curl -s http://localhost:8123/api/user/register -X POST -H \"Content-Type: application/json\" -d '{\"userAccount\":\"testuser\",\"userPassword\":\"test1234\",\"checkPassword\":\"test1234\"}')",
+      "Bash(python -m json.tool)",
+      "Bash(netstat -ano)",
+      "Bash(findstr :8123)",
+      "Bash(findstr LISTENING)",
+      "Bash(taskkill *)",
+      "Bash(cmd *)",
+      "Bash(powershell -Command \"Stop-Process -Id 14448 -Force\")",
+      "Bash(curl -s -c /tmp/cookies.txt http://localhost:8123/api/user/register -X POST -H 'Content-Type: application/json' -d '{\"userAccount\":\"testuser\",\"userPassword\":\"test1234\",\"checkPassword\":\"test1234\"}')",
+      "Bash(curl -s -c /tmp/cookies.txt http://localhost:8123/api/user/login -X POST -H 'Content-Type: application/json' -d '{\"userAccount\":\"testuser\",\"userPassword\":\"test1234\"}')",
+      "Bash(curl -s http://localhost:8123/api/user/register -X POST -H 'Content-Type: application/json' -d '{\"userAccount\":\"testuser2\",\"userPassword\":\"test1234\",\"checkPassword\":\"test1234\"}')",
+      "Bash(mysql *)",
+      "Bash(powershell -Command \"& 'C:\\\\Program Files\\\\MySQL\\\\MySQL Server 8.0\\\\bin\\\\mysql.exe' -u root -p123456 hl_oj -e 'SHOW TABLES;' 2>&1\")",
+      "Bash(powershell -Command \"Get-Command mysql -ErrorAction SilentlyContinue; ls 'C:\\\\Program Files\\\\MySQL' 2>/dev/null; ls 'C:\\\\Program Files\\\\MySQL Server*' 2>/dev/null\")",
+      "Bash(powershell *)",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(git push *)",
+      "Bash(git remote *)",
+      "Bash(echo \"Server PID: $!\")",
+      "Bash(curl -s http://localhost:8123/api/health)",
+      "Bash(curl -s -X POST http://localhost:8123/api/user/register -H 'Content-Type: application/json' -d '{\"userAccount\":\"testadmin\",\"userPassword\":\"12345678\",\"checkPassword\":\"12345678\"}')",
+      "Bash(python3 -m json.tool)",
+      "Bash(curl *)",
+      "Bash(git commit *)"
+    ]
+  }
+}

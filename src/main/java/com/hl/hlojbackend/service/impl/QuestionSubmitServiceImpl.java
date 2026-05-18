@@ -22,6 +22,7 @@ import com.hl.hlojbackend.service.QuestionService;
 import com.hl.hlojbackend.service.QuestionSubmitService;
 import com.hl.hlojbackend.service.UserService;
 import jakarta.annotation.Resource;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -31,6 +32,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@Slf4j
 public class QuestionSubmitServiceImpl extends ServiceImpl<QuestionSubmitMapper, QuestionSubmit>
         implements QuestionSubmitService {
 
@@ -67,8 +69,18 @@ public class QuestionSubmitServiceImpl extends ServiceImpl<QuestionSubmitMapper,
         questionSubmit.setJudgeInfo("{}");
 
         ThrowUtils.throwIf(!this.save(questionSubmit), ErrorCode.SYSTEM_ERROR, "题目提交失败");
-        judgeService.doJudge(questionSubmit.getId());
-        return questionSubmit.getId();
+        Long submitId = questionSubmit.getId();
+        Thread.startVirtualThread(() -> {
+            try {
+                log.info("开始判题，提交ID: {}", submitId);
+                judgeService.doJudge(submitId);
+                log.info("判题完成，提交ID: {}", submitId);
+            } catch (Exception e) {
+                log.error("判题失败，提交ID: {}", submitId, e);
+            }
+        });
+
+        return submitId;
     }
 
     @Override
